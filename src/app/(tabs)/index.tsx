@@ -8,7 +8,7 @@ export default function TaskListScreen() {
   return (
     <View className="flex-1 bg-white p-4">
       <Text className="text-xl font-semibold mb-4">
-        Tasks
+        Home Screen
       </Text>
     </View>
   );
