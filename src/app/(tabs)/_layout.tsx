@@ -1,32 +1,27 @@
-import React from 'react';
 import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
-
-export default function TabLayout() {
-  // const colorScheme = useColorScheme();
-
+export default function TabsLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        // tabBarButton: HapticTab,
-      }}>
+    <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <Ionicons size={28} name="home" color="#9ca3af" />,
+          title: 'Tasks',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="list" size={size} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="completed"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <Ionicons size={28} name="search" color={color} />,
+          title: 'Completed',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="check-circle" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>
   );
-}
+};
