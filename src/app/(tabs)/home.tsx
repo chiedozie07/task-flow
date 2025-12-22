@@ -36,7 +36,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className={`flex-1 px-6 ${dark ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <View className="mt-6 mb-8">
-        <View className="flex-row items-center justify-between mb-2">
+        <View className="flex-row items-center justify-between mb-2 border-b pb-2 border-gray-500/10">
           <Text className="text-3xl font-extrabold text-orange-500">TaskFlow</Text>
           {/* theme toggle */}
           <View className="flex-row items-center mb-4">
@@ -45,7 +45,7 @@ export default function HomeScreen() {
           </View>
         </View>
         {/* greeting and subtitle */}
-        <Text className={`text-xl font-semibold ${dark ? 'text-gray-100' : 'text-gray-800'}`}>{getGreeting()}, Chiedozie!</Text>
+        <Text className={`mt-5 text-xl font-semibold ${dark ? 'text-gray-100' : 'text-gray-800'}`}>{getGreeting()}, Chiedozie!</Text>
         <Text className={`mt-1 ${dark ? 'text-gray-400' : 'text-gray-500'}`}>Organize your day, one task at a time</Text>
       </View>
 
