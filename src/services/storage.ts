@@ -23,3 +23,19 @@ export const loadTasks = async (): Promise<Task[]> => {
     return [];
   }
 };
+
+// streak management functions for tracking consecutive days of task completion 
+const STREAK_KEY = 'TASKFLOW_STREAK';
+
+export async function loadStreak() {
+  const data = await AsyncStorage.getItem(STREAK_KEY);
+  return data ? JSON.parse(data) : { count: 0, lastDate: null };
+}
+
+export async function saveStreak(streak: {
+  count: number;
+  lastDate: string;
+}) {
+  await AsyncStorage.setItem(STREAK_KEY, JSON.stringify(streak));
+};
+

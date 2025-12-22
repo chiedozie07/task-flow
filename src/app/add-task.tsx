@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { TaskContext } from '@/context/TaskContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Crypto from 'expo-crypto';
+import { useTheme } from '@/context/ThemeContext';
 
 
 
@@ -13,7 +14,7 @@ export default function AddTaskScreen() {
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-
+  const { dark } = useTheme();
 
 
   const handleAddTask = () => {
@@ -30,7 +31,7 @@ export default function AddTaskScreen() {
     //     description: description.trim(),
     //   },
     // });
-     const id = Crypto.randomUUID();
+    const id = Crypto.randomUUID();
     dispatch({
       type: 'ADD_TASK',
       payload: {
@@ -45,33 +46,12 @@ export default function AddTaskScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white p-4">
-      <Text className="text-lg font-semibold mb-4">
-        Add New Task
-      </Text>
-
-      <TextInput
-        placeholder="Task title"
-        value={title}
-        onChangeText={setTitle}
-        className="border border-gray-300 rounded-md px-3 py-2 mb-3"
-      />
-
-      <TextInput
-        placeholder="Description (optional)"
-        value={description}
-        onChangeText={setDescription}
-        multiline
-        className="border border-gray-300 rounded-md px-3 py-2 h-24 mb-6"
-      />
-
-      <Pressable
-        onPress={handleAddTask}
-        className="bg-orange-500 py-3 rounded-md items-center mt-5"
-      >
-        <Text className="text-white font-semibold">
-          Add Task
-        </Text>
+    <SafeAreaView className={`flex-1 px-4 pt-6 ${dark ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <Text className={`text-lg font-semibold mb-2 ${dark ? 'text-gray-100' : 'text-gray-900'}`}>Add New Task</Text>
+      <TextInput placeholder="Task title" value={title} onChangeText={setTitle} className="border border-gray-300 rounded-md px-3 py-2 mb-3" placeholderTextColor={dark ? '#9ca3af' : undefined} />
+      <TextInput placeholder="Description (optional)" value={description} onChangeText={setDescription} multiline className="border border-gray-300 rounded-md px-3 py-2 h-24 mb-6" placeholderTextColor={dark ? '#9ca3af' : undefined} />
+      <Pressable onPress={handleAddTask} className="bg-orange-500 py-3 rounded-md items-center">
+        <Text className="text-white font-semibold">Add Task</Text>
       </Pressable>
     </SafeAreaView>
   );

@@ -16,16 +16,19 @@ The app implements two screens as required:
 ### Why I chose Expo Router
 Expo Router is an abstraction on top of React Navigation. I chose it to reduce boilerplate and focus more on core features like state management, persistence, and voice transcription, while still fully complying with the React Navigation requirement.
 
+## Features
+- Add, complete, delete tasks
+- Voice input via OpenAI transcription
+- Offline persistence with AsyncStorage
+- Clean tab-based navigation
+
 ## Get started
-1. Install dependencies
-
+### Setup
    ```bash
-   npx create-expo-app@latest
-   cd taskFlow
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
+   1. Clone repo
+2. Install dependencies
+3. cd taskFlow
+4. Create `.env` file:
+   EXPO_PUBLIC_OPENAI_API_KEY=your_key
+5. Run: npx expo start
    ```

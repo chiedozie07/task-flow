@@ -34,7 +34,6 @@ yarn-error.*
 .vscode/
 
 # local env files
-.env
 .env*.local
 
 # typescript
@@ -45,3 +44,4 @@ app-example
 # generated native folders
 /ios
 /android
+.env
