@@ -42,7 +42,7 @@ export function TaskList({
         <Pressable
           onPress={() => onToggle(item.id)}
           onLongPress={() => onDelete(item.id)}
-          className="flex-row items-center justify-between px-4 py-4 mb-3 bg-white rounded-xl border border-gray-100"
+          className="flex-row items-center justify-between px-4 py-4 mb-3 bg-[#e5e7eb] rounded-xl border border-gray-100"
         >
           <Text
             className={`flex-1 text-base ${

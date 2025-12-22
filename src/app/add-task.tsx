@@ -1,12 +1,10 @@
 import { Text, TextInput, Pressable, Alert } from 'react-native';
 import { useContext, useState } from 'react';
 import { useRouter } from 'expo-router';
-// import { v4 as uuidv4 } from 'uuid';
 import { TaskContext } from '@/context/TaskContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Crypto from 'expo-crypto';
 import { useTheme } from '@/context/ThemeContext';
-
 
 
 export default function AddTaskScreen() {
@@ -16,22 +14,15 @@ export default function AddTaskScreen() {
   const [description, setDescription] = useState('');
   const { dark } = useTheme();
 
-
   const handleAddTask = () => {
     if (!title.trim()) {
       Alert.alert('Validation Error', 'Task title cannot be empty');
       return;
     }
-    // dispatch({
-    //   type: 'ADD_TASK',
-    //   payload: {
-    //     id: uuidv4(),
-    //     title: title.trim(),
-    //     completed: false,
-    //     description: description.trim(),
-    //   },
-    // });
+    // generate a unique ID using Crypto.randomUUID()
     const id = Crypto.randomUUID();
+
+    // dispatch action to add the new task to the context state 
     dispatch({
       type: 'ADD_TASK',
       payload: {
@@ -39,6 +30,7 @@ export default function AddTaskScreen() {
         title: title.trim(),
         completed: false,
         description: description.trim(),
+        createdAt: new Date().toISOString(),
       },
     });
 
