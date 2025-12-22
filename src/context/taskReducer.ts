@@ -1,33 +1,40 @@
-import { TaskAction, TaskState } from "./types";
+import { Task, TaskAction } from './types';
 
 
-export const initialState: TaskState = {
+type State = {
+  tasks: Task[];
+};
+
+export const initialState: State = {
   tasks: [],
 };
 
-export function taskReducer(state: TaskState, action: TaskAction): TaskState {
+export function taskReducer(
+  state: State,
+  action: TaskAction
+): State {
   switch (action.type) {
-    case "ADD_TASK":
+    case 'ADD_TASK':
       return { tasks: [action.payload, ...state.tasks] };
 
-    case "TOGGLE_TASK":
+    case 'TOGGLE_TASK':
       return {
-        tasks: state.tasks.map((task) =>
+        tasks: state.tasks.map(task =>
           task.id === action.payload
             ? { ...task, completed: !task.completed }
             : task
         ),
       };
 
-    case "DELETE_TASK":
+    case 'DELETE_TASK':
       return {
-        tasks: state.tasks.filter((task) => task.id !== action.payload),
+        tasks: state.tasks.filter(task => task.id !== action.payload),
       };
 
-    case "SET_TASKS":
+    case 'SET_TASKS':
       return { tasks: action.payload };
 
     default:
       return state;
   }
-}
+};
