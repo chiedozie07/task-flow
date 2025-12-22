@@ -1,24 +1,27 @@
-import { Task, TaskAction } from './types';
+import { TaskAction, TaskState } from './types';
 
-
-type State = {
-  tasks: Task[];
-};
-
-export const initialState: State = {
+export const initialState: TaskState = {
   tasks: [],
+  streak: {
+    count: 0,
+    lastDate: '',
+  },
 };
 
 export function taskReducer(
-  state: State,
+  state: TaskState,
   action: TaskAction
-): State {
+): TaskState {
   switch (action.type) {
     case 'ADD_TASK':
-      return { tasks: [action.payload, ...state.tasks] };
+      return {
+        ...state,
+        tasks: [action.payload, ...state.tasks],
+      };
 
     case 'TOGGLE_TASK':
       return {
+        ...state,
         tasks: state.tasks.map(task =>
           task.id === action.payload
             ? { ...task, completed: !task.completed }
@@ -28,11 +31,21 @@ export function taskReducer(
 
     case 'DELETE_TASK':
       return {
+        ...state,
         tasks: state.tasks.filter(task => task.id !== action.payload),
       };
 
     case 'SET_TASKS':
-      return { tasks: action.payload };
+      return {
+        ...state,
+        tasks: action.payload,
+      };
+
+    case 'SET_STREAK':
+      return {
+        ...state,
+        streak: action.payload,
+      };
 
     default:
       return state;
