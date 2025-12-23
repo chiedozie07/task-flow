@@ -1,16 +1,8 @@
-import React, { useState, useContext } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import { View, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import Animated, { useSharedValue, useAnimatedStyle, withRepeat, withTiming, Easing } from 'react-native-reanimated';
 import { MaterialIcons } from '@expo/vector-icons';
-import {
-  startRecording,
-  stopRecording,
-  transcribeRecording,
-} from '@/services/voiceService';
+import { startRecording, stopRecording, transcribeRecording } from '@/services/voiceService';
 import { TaskContext } from '@/context/TaskContext';
 
 
@@ -21,16 +13,35 @@ export default function FABVoice() {
   const [recording, setRecording] = useState(false);
   const [loading, setLoading] = useState(false);
 
+
+  // animation for FAB button 
+    const scale = useSharedValue(1);
+    useEffect(() => {
+      scale.value = withRepeat(
+        withTiming(1.08, {
+          duration: 1200,
+          easing: Easing.inOut(Easing.ease),
+        }),
+        -1,
+        true
+      );
+    }, []);
+  
+    // animated style for FAB
+    const animatedFabStyle = useAnimatedStyle(() => ({
+      transform: [{ scale: scale.value }],
+    }));
+
   const handlePress = async () => {
     try {
-      // START RECORDING
+      // strart recording
       if (!recording) {
         await startRecording();
         setRecording(true);
         return;
       }
 
-      // STOP + TRANSCRIBE
+      // stop recording and process audio(transcription + task extraction)
       setRecording(false);
       setLoading(true);
 
@@ -41,7 +52,7 @@ export default function FABVoice() {
         Alert.alert('No tasks detected', 'Try speaking more clearly.');
         return;
       }
-
+      // add tasks to global state
       tasks.forEach((title) => {
         dispatch({
           type: 'ADD_TASK',
@@ -62,14 +73,14 @@ export default function FABVoice() {
     }
   };
 
+
   return (
-    <View className="absolute bottom-6 right-6">
+    <Animated.View style={[animatedFabStyle]} className="absolute bottom-28 right-6">
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.85}
-        className={`w-16 h-16 rounded-full items-center justify-center shadow-lg ${
-          recording ? 'bg-red-500' : 'bg-[#F87315]'
-        }`}
+        className={`w-16 h-16 rounded-full items-center justify-center shadow-lg ${recording ? 'bg-red-500' : 'bg-[#F87315]'
+          }`}
       >
         {loading ? (
           <ActivityIndicator color="#fff" />
@@ -81,6 +92,6 @@ export default function FABVoice() {
           />
         )}
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 };

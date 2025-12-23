@@ -6,6 +6,8 @@ import { useTheme } from '@/context/ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
+
+
 export default function HomeScreen() {
   const { state } = React.useContext(TaskContext);
   const { dark, toggle } = useTheme();
