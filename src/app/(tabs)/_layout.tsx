@@ -2,6 +2,7 @@ import { Tabs } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
 
+
 export default function TabLayout() {
   const { dark, colors } = useTheme();
 
@@ -9,7 +10,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-
         // tab bar container
         tabBarStyle: {
           backgroundColor: dark ? '#111827' : '#ffffff',

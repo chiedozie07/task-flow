@@ -2,12 +2,15 @@ import React, { createContext, useReducer, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { taskReducer, initialState } from './taskReducer';
 import { TaskAction, TaskState, Streak } from './types';
+import { useTaskStreak } from '@/hooks/useTaskStreak';
 
+// define the shape of our context
 interface TaskContextProps {
   state: TaskState;
   dispatch: React.Dispatch<TaskAction>;
-}
+};
 
+// create the context with default values
 export const TaskContext = createContext<TaskContextProps>({
   state: initialState,
   dispatch: () => null,
@@ -16,11 +19,11 @@ export const TaskContext = createContext<TaskContextProps>({
 const TASKS_KEY = 'TASKS';
 const STREAK_KEY = 'TASK_STREAK';
 
+// provider component to wrap the app and provide task state
 export function TaskProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(taskReducer, initialState);
 
-
-  // load tasks from AsyncStorage when the app starts 
+  // load tasks from AsyncStorage on app start
   useEffect(() => {
     const loadTasks = async () => {
       const stored = await AsyncStorage.getItem(TASKS_KEY);
@@ -35,54 +38,27 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     loadTasks();
   }, []);
 
-  // persist or save tasks whenever they change 
+    // persist tasks whenever they change
   useEffect(() => {
     AsyncStorage.setItem(TASKS_KEY, JSON.stringify(state.tasks));
   }, [state.tasks]);
 
-  // streak helper functions
-  const loadStreak = async (): Promise<Streak> => {
-    const stored = await AsyncStorage.getItem(STREAK_KEY);
-    return stored
-      ? JSON.parse(stored)
-      : { count: 0, lastDate: '' };
-  };
-
-  const saveStreak = async (streak: Streak) => {
-    await AsyncStorage.setItem(STREAK_KEY, JSON.stringify(streak));
-  };
-
-  // Load the streak data when the app starts 
+  // load streak once on app start
   useEffect(() => {
-    const initStreak = async () => {
-      const stored = await loadStreak();
-      dispatch({ type: 'SET_STREAK', payload: stored });
+    const loadStreak = async () => {
+      const stored = await AsyncStorage.getItem(STREAK_KEY);
+      const streak: Streak = stored
+        ? JSON.parse(stored)
+        : { count: 0, lastDate: '' };
+
+      dispatch({ type: 'SET_STREAK', payload: streak });
     };
 
-    initStreak();
+    loadStreak();
   }, []);
 
-  // Update streak on task change or when tasks are added or completed
-  useEffect(() => {
-    const updateStreak = async () => {
-      if (state.tasks.length === 0) return;
-
-      const today = new Date().toDateString();
-      const stored = await loadStreak();
-
-      if (stored.lastDate !== today) {
-        const updated: Streak = {
-          count: stored.count + 1,
-          lastDate: today,
-        };
-
-        await saveStreak(updated);
-        dispatch({ type: 'SET_STREAK', payload: updated });
-      }
-    };
-
-    updateStreak();
-  }, [state.tasks]);
+  // call custom hook to handle streak updates
+  useTaskStreak(state.tasks, dispatch);
 
   return (
     <TaskContext.Provider value={{ state, dispatch }}>
