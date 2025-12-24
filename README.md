@@ -204,12 +204,12 @@ http://0.0.0.0:8080
 ```
 
 ## API Documentation
+**Request**
 ### POST /api/transcribe
-Request
-### POST /api/voice/transcribe
-**Request**  
+```
 - Content-Type: `multipart/form-data`  
 - Body field: `file` — the recorded voice note from the client (audio file)
+```
 
 Example using `curl`:
 ```bash
