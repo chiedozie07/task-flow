@@ -56,30 +56,30 @@ Below are key screens from **TaskFlow**, showcasing the UI, navigation flow, and
 
 ### Home Screen / Dashboard
 <p align="center">
-  <img src="src/assets/images/screenshots/home.png" alt="Home Dashboard Screen" width="280" />
+  <img src="src/assets/images/screenshots/home.png" alt="Home Dashboard Screen" width="420" />
 </p>
 
----c
+---
 
-### ➕ Empty Tasks Screen
+### Empty Tasks Screen
 <p align="center">
-  <img src="src/assets/images/screenshots/empty-tasks.png" alt="Empty Tasks Screen" width="280" />
+  <img src="src/assets/images/screenshots/empty-tasks.png" alt="Empty Tasks Screen" width="420" />
 </p>
 
 ---
 
 ### Tasks Screen & Completed Tasks Screen
 <p align="center">
-  <img src="src/assets/images/screenshots/tasks.png" alt="Tasks Screen" width="280" />
+  <img src="src/assets/images/screenshots/tasks.png" alt="Tasks Screen" width="420" />
   &nbsp;&nbsp;&nbsp;
-  <img src="src/assets/images/screenshots/completed.png" alt="Completed Tasks Screen" width="280" />
+  <img src="src/assets/images/screenshots/completed.png" alt="Completed Tasks Screen" width="420" />
 </p>
 
 ---
 
-### ➕ Add New Task Screen (Manual Entry)
+### Add New Task Screen (Manual Entry)
 <p align="center">
-  <img src="src/assets/images/screenshots/add-new-task.png" alt="Add New Task Screen" width="280" />
+  <img src="src/assets/images/screenshots/add-new-task.png" alt="Add New Task Screen" width="420" />
 </p>
 
 
@@ -283,4 +283,14 @@ Full-stack Software Engineer — React Native | Node.js | TypeScript | React.js 
 - Voice transcription requires a paid account
 - Therefore, OpenAI can block call requests is because my API key has NO remaining quota or billing attached.
 
-*Thanks for reading and happy coding.*
+## License
+MIT License
+
+Copyright (c) 2025 Chiedozie Ezidiegwu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction.
+
+
+*Thanks for reading, and happy coding!*
