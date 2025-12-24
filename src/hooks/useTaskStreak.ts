@@ -27,5 +27,5 @@ export function useTaskStreak(tasks: Task[], dispatch: React.Dispatch<any>) {
     };
 
     updateStreak();
-  }, [tasks]);
+  }, [tasks, dispatch]);
 };
