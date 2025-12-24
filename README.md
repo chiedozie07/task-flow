@@ -56,30 +56,30 @@ Below are key screens from **TaskFlow**, showcasing the UI, navigation flow, and
 
 ### Home Screen / Dashboard
 <p align="center">
-  <img src="assets/images/screenshots/home.png" alt="Home Dashboard Screen" width="280" />
+  <img src="src/assets/images/screenshots/home.png" alt="Home Dashboard Screen" width="280" />
 </p>
 
----
+---c
 
 ### ➕ Empty Tasks Screen
 <p align="center">
-  <img src="assets/images/screenshots/empty-tasks.png" alt="Empty Tasks Screen" width="280" />
+  <img src="src/assets/images/screenshots/empty-tasks.png" alt="Empty Tasks Screen" width="280" />
 </p>
 
 ---
 
 ### Tasks Screen & Completed Tasks Screen
 <p align="center">
-  <img src="assets/images/screenshots/tasks.png" alt="Tasks Screen" width="280" />
+  <img src="src/assets/images/screenshots/tasks.png" alt="Tasks Screen" width="280" />
   &nbsp;&nbsp;&nbsp;
-  <img src="assets/images/screenshots/completed.png" alt="Completed Tasks Screen" width="280" />
+  <img src="src/assets/images/screenshots/completed.png" alt="Completed Tasks Screen" width="280" />
 </p>
 
 ---
 
 ### ➕ Add New Task Screen (Manual Entry)
 <p align="center">
-  <img src="assets/images/screenshots/add-new-task.png" alt="Add New Task Screen" width="280" />
+  <img src="src/assets/images/screenshots/add-new-task.png" alt="Add New Task Screen" width="280" />
 </p>
 
 
