@@ -22,16 +22,17 @@ The app implements two screens as required and three more bonus screen:
 Expo Router is an abstraction on top of React Navigation. I chose it to reduce boilerplate and focus more on core features like state management, persistence, and voice transcription, while still fully complying with the React Navigation requirement.
 
 ## Key Features
-- ** AI Voice Command (Req 6):** Add tasks using voice input (Floating Action Button) by simply recording voice notes to automatically generate and split tasks using OpenAI Whisper and GPT-4o-mini transcription or to split natural language into multiple tasks.
-- ** Intelligent Task Splitting:** Natural language processing separates complex sentences (e.g., "Buy groceries and call the bank") into individual, manageable items.
+- AI Voice Command (Req 6): Add tasks using voice input (Floating Action Button) by simply recording voice notes to automatically generate and split tasks using OpenAI Whisper and GPT-4o-mini transcription or to split natural language into multiple tasks.
+- Intelligent Task Splitting: Natural language processing separates complex sentences (e.g., "Buy groceries and call the bank") into individual, manageable items.
 - Add tasks manually via form
 - Mark tasks as complete / incomplete
 - Delete tasks
-- ** Native Performance:** Built with Expo, TypeScript, and NativeWind (Tailwind CSS) for a fluid, responsive UI.
-- ** Modular Backend:** A dedicated Node.js/TypeScript proxy server handles secure AI processing and file management.
-- ** Persistence:** Local storage via AsyncStorage.
-- ** Theming:** Full Dark/Light mode support.
-- ** Animations:** Smooth transitions using Lottie and Reanimated.
+- Native Performance: Built with Expo, TypeScript, and NativeWind (Tailwind CSS) for a fluid, responsive UI.
+- Modular Backend: A dedicated Node.js/TypeScript proxy server handles secure AI processing and file management.
+- Persistence: Local storage via AsyncStorage.
+- Theming: Full Dark/Light mode support.
+- Custom splashscreen
+- Animations: Smooth transitions using Lottie and Reanimated.
 - Offline persistence with AsyncStorage
 - Clean tab-based navigation
 - Global state via React Context + reducer
@@ -203,16 +204,41 @@ http://0.0.0.0:8080
 ```
 
 ## API Documentation
-### POST /api/voice/transcribe
+### POST /api/transcribe
 Request
-Content-Type: multipart/form-data
-Successful Response (200)
+### POST /api/voice/transcribe
+**Request**  
+- Content-Type: `multipart/form-data`  
+- Body field: `file` — the recorded voice note from the client (audio file)
+
+Example using `curl`:
+```bash
+curl -X POST "http://localhost:8080/api/transcribe" \
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@voice-note.mp3"
+```
+
+## Successful Response (200 OK)
+The backend transcribes the audio using OpenAI Whisper, processes it with GPT-4o-mini, and returns a structured JSON array of tasks:
 ```
 {
   "tasks": [
-    { "title": "Buy groceries" },
-    { "title": "Call mom" }
-  ]
+    {
+      "id": "task-001",
+      "title": "Buy groceries",
+      "completed": false
+    },
+    {
+      "id": "task-002",
+      "title": "Call mom",
+      "completed": false
+    }
+  ],
+  "transcription": "Buy groceries and call mom",
+  "metadata": {
+    "audioDuration": 5.2,
+    "voiceConfidence": 0.97
+  }
 }
 ```
 
@@ -260,10 +286,10 @@ Successful Response (200)
 - Permission denial (microphone)
 - Network failures
 - API quota exhaustion
-- Duplicate task prevention
+- Duplicate task prevention, etc.
 
 ## Submission Notes
-This project fulfills all required features outlined by AAIR Labs/ETS Systems and includes multiple bonus enhancements such as voice input, animations, dark mode, and intelligent task parsing.
+This project fulfills all required features outlined by AAIR Labs/ETS Systems and includes multiple bonus enhancements such as voice input, animations, dark mode, intelligent task parsing, manual task creation and custom splash screen.
 Code is modular, readable, well-commented, and production-ready.
 
 ## Author
